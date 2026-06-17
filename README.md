@@ -28,12 +28,22 @@ O usuário pode:
 # 📁 Estrutura do Projeto
 
 ```
-Web Weather App
+Web Weather App/
 ├── app.py
 │   
 └── templates/
-    └── index.html
-    
+│   └── index.html
+│
+└── requirements.txt   
+│   
+└── license
+│    
+└── readme.md
+│    
+└── .gitignore
+│    
+└── Video Explicação 
+
 ```
 
 ## ⚙️ Como funciona
