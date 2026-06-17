@@ -25,17 +25,17 @@ O usuário pode:
 - Jinja2 (templates dinâmicos)
 
 ---
+# 📁 Estrutura do Projeto
 
-## 📁 Estrutura do projeto
+```
 CHECK-POINT-5/
-│
-├── app.py # Backend Flask (API + lógica principal)
+├── app.py
+│   └── Backend Flask (API + lógica principal)
 │
 └── templates/
-    |__ index.html # Interface do usuário
-
-
----
+    └── index.html
+        └── Interface do usuário
+```
 
 ## ⚙️ Como funciona
 
