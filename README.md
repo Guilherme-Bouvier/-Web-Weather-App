@@ -28,13 +28,12 @@ O usuário pode:
 # 📁 Estrutura do Projeto
 
 ```
-CHECK-POINT-5/
+Web Weather App
 ├── app.py
-│   └── Backend Flask (API + lógica principal)
-│
+│   
 └── templates/
     └── index.html
-        └── Interface do usuário
+    
 ```
 
 ## ⚙️ Como funciona
