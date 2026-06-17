@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- Define que o documento é HTML5 -->
+
+<html lang="pt-BR">
+<!-- Início do HTML e idioma português Brasil -->
+
+<head>
+    <!-- Cabeçalho da página (configurações que não aparecem visualmente) -->
+
+    <meta charset="UTF-8">
+    <!-- Permite acentuação e caracteres especiais -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Deixa o site responsivo em celulares e tablets -->
+
+    <title>Web Weather App - Previsão Climática</title>
+    <!-- Título da aba do navegador -->
+
+    <!-- Bootstrap 5 (framework CSS pronto) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* =========================
+           ESTILO GERAL DA PÁGINA
+        ========================= */
+
+        body {
+            background-color: #0b0f19; /* Fundo escuro */
+            color: #f8fafc; /* Texto claro */
+        }
+
+        /* =========================
+           CARD PRINCIPAL
+        ========================= */
+
+        .weather-card {
+            background-color: #111827; /* Fundo do card */
+            border: 1px solid #1f2937; /* Borda */
+            border-radius: 1rem; /* Cantos arredondados */
+            max-width: 450px; /* Largura máxima */
+            width: 100%; /* Responsivo */
+            padding: 2rem; /* Espaçamento interno */
+        }
+
+        /* =========================
+           CAIXAS DE INFO (UMIDADE / VENTO)
+        ========================= */
+
+        .info-box {
+            background-color: #1f293b;
+            border: 1px solid #334155;
+        }
+
+        /* Placeholder do input */
+        .form-control::placeholder {
+            color: #6c757d;
+        }
+
+        /* Quando o input está selecionado */
+        .form-control:focus {
+            background-color: #1f293b;
+            border-color: #0dcaf0;
+            color: white;
+            box-shadow: none;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex min-vh-100 align-items-center justify-content-center p-3">
+<!-- Centraliza tudo na tela com Flexbox -->
+
+    <div class="weather-card shadow-lg">
+        <!-- Card principal com sombra -->
+
+        <!-- =========================
+             TÍTULO
+        ========================= -->
+
+        <h2 class="text-center text-info fw-bold mb-4">
+
+            <i class="fa-solid fa-cloud-sun me-2"></i>
+            <!-- Ícone de clima -->
+
+            Weather App
+        </h2>
+
+        <!-- =========================
+             FORMULÁRIO
+        ========================= -->
+
+        <form method="POST" class="d-flex gap-2 mb-4">
+            <!-- POST envia dados para o Flask -->
+
+            <input
+                type="text"
+                name="cidade"
+                placeholder="Digite uma cidade..."
+                class="form-control bg-dark text-white border-secondary py-2"
+                required
+            >
+            <!-- Campo de entrada da cidade -->
+
+            <button type="submit" class="btn btn-info text-dark fw-bold px-4">
+                <!-- Botão de envio -->
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <!-- Ícone de lupa -->
+            </button>
+        </form>
+
+        <!-- =========================
+             ERRO (SE EXISTIR)
+        ========================= -->
+
+        {% if erro %}
+            <div class="alert alert-danger text-center mb-4">
+                <!-- Mostra mensagem de erro -->
+                {{ erro }}
+            </div>
+        {% endif %}
+
+        <!-- =========================
+             DADOS DO CLIMA
+        ========================= -->
+
+        {% if clima %}
+        <!-- Só mostra se a API retornou dados -->
+
+        <div class="text-center mt-4">
+
+            <!-- Nome da cidade e país -->
+            <h3 class="fw-bold text-white">
+                <i class="fa-solid fa-location-dot text-info me-2"></i>
+
+                {{ clima['name'] }}, {{ clima['sys']['country'] }}
+            </h3>
+
+            <!-- Descrição do clima -->
+            <p class="text-info text-capitalize mb-4 mt-1">
+                {{ clima['weather'][0]['description'] }}
+            </p>
+
+            <!-- Temperatura -->
+            <div class="display-2 fw-bold text-white mb-4">
+                {{ clima['main']['temp'] | round(1) }}°C
+            </div>
+
+            <!-- =========================
+                 INFORMAÇÕES EXTRAS
+            ========================= -->
+
+            <div class="row g-3 border-top border-secondary pt-4">
+
+                <!-- UMIDADE -->
+                <div class="col-6">
+                    <div class="info-box p-3 rounded">
+
+                        <i class="fa-solid fa-droplet text-primary mb-2 fs-4"></i>
+
+                        <span class="d-block small text-uppercase mb-1">
+                            Umidade
+                        </span>
+
+                        <span class="fs-5 fw-bold text-white">
+                            {{ clima['main']['humidity'] }}%
+                        </span>
+
+                    </div>
+                </div>
+
+                <!-- VENTO -->
+                <div class="col-6">
+                    <div class="info-box p-3 rounded">
+
+                        <i class="fa-solid fa-wind text-success mb-2 fs-4"></i>
+
+                        <span class="d-block small text-uppercase">
+                            Vento
+                        </span>
+
+                        <!-- Conversão m/s → km/h -->
+                        <span class="fs-5 fw-bold text-white">
+                            {{ (clima['wind']['speed'] * 3.6) | round(1) }} km/h
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
